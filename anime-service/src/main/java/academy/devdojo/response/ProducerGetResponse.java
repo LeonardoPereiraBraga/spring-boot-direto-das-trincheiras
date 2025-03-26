@@ -6,12 +6,11 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
 @Setter
+@Getter
 @Builder
 public class ProducerGetResponse {
     private Long id;
     private String name;
     private LocalDateTime createdAt;
-
 }

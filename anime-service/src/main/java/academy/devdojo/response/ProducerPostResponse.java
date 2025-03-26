@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class AnimeGetResponse {
+public class ProducerPostResponse {
     private Long id;
     private String name;
 }
