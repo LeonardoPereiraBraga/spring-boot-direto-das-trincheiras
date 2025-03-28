@@ -1,6 +1,7 @@
 package academy.devdojo.repository;
 
 import academy.devdojo.domain.Anime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -9,37 +10,32 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class AnimeHardCodedRepository {
-    private static final List<Anime> ANIMES = new ArrayList<>();
-
-    static {
-        var mappa = Anime.builder().id(1L).name("Mappa").build();
-        var kyotoAnimation = Anime.builder().id(2L).name("Kyoto Animation").build();
-        var madhouse = Anime.builder().id(3L).name("Madhouse").build();
-        ANIMES.addAll(List.of(mappa, kyotoAnimation, madhouse));
-    }
-
+    
+    private final AnimeData animeData;
+    
 
     public List<Anime> findAll() {
-        return ANIMES;
+        return animeData.getAnimeList();
     }
 
     public Optional<Anime> findById(Long id){
-        return ANIMES
+        return animeData.getAnimeList()
                 .stream()
                 .filter(anime -> anime.getId().equals(id))
                 .findFirst();
     }
 
     public List<Anime> findByName(String name){
-        return ANIMES.stream().filter(anime -> anime.getName().equalsIgnoreCase(name)).toList();
+        return animeData.getAnimeList().stream().filter(anime -> anime.getName().equalsIgnoreCase(name)).toList();
     }
     public Anime save(Anime anime){
-        ANIMES.add(anime);
+        animeData.getAnimeList().add(anime);
         return anime;
     }
     public void delete(Anime anime){
-        ANIMES.remove(anime);
+        animeData.getAnimeList().remove(anime);
 
     }
     public void update(Anime anime){

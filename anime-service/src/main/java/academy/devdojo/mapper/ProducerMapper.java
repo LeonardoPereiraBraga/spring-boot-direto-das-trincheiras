@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ProducerMapper {
     ProducerMapper INSTANCE = Mappers.getMapper(ProducerMapper.class);
 

@@ -9,7 +9,9 @@ import academy.devdojo.response.ProducerGetResponse;
 import academy.devdojo.response.ProducerPostResponse;
 import academy.devdojo.service.ProducerService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,10 +24,11 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/producers")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProducerController {
-    private static final ProducerMapper MAPPER = ProducerMapper.INSTANCE;
-    private ProducerService producerService;
+    @Qualifier("producerMapper")
+    private final ProducerMapper MAPPER;
+    private final ProducerService producerService;
     @GetMapping
     public ResponseEntity<List<ProducerGetResponse>> listAll(@RequestParam(required = false) String name) {
         log.debug("Request received to list all producers, param name '{}'", name);
@@ -50,7 +53,7 @@ public class ProducerController {
     public ResponseEntity<ProducerPostResponse> save(@RequestBody ProducerPostRequest producerPostRequest, @RequestHeader HttpHeaders headers) {
         log.info("{}", headers);
         var producer = MAPPER.toProducer(producerPostRequest);
-        Producer producerSaved = producerService.save(producer);
+        Producer producerSaved = producerService.save(producer); 
         var response = MAPPER.toProducerPostResponse(producerSaved);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

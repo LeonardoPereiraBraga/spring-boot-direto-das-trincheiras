@@ -11,7 +11,9 @@ import academy.devdojo.response.AnimePostResponse;
 import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.service.AnimeService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +24,13 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/animes")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AnimeController {
-    private static final AnimeMapper MAPPER = AnimeMapper.INSTANCE;
-    private AnimeService animeService;
+
+
+    @Qualifier("animeMapper")
+    private final AnimeMapper MAPPER;
+    private final AnimeService animeService;
 
     @GetMapping
     public ResponseEntity<List<AnimeGetResponse>> listAll(@RequestParam(required = false) String name) {

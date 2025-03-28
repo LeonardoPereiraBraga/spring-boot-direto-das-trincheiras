@@ -4,17 +4,18 @@ package academy.devdojo.service;
 import academy.devdojo.domain.Anime;
 import academy.devdojo.repository.AnimeHardCodedRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AnimeService {
 
-    private AnimeHardCodedRepository repository;
+    private final AnimeHardCodedRepository repository;
 
     public List<Anime> findAll(String name){
         return name== null ? repository.findAll() : repository.findByName(name);
