@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Anime {
     @EqualsAndHashCode.Include
     private Long id;
