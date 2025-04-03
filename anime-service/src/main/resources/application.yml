@@ -13,3 +13,10 @@ server:
   tomcat:
     threads:
       max: 20
+
+database:
+  url: ${DB_URL:localhost}:${DB_PORT:3306}
+  username: ${LOCAL_USERNAME:root} #:root sigfica que caso nao ache essa variavel o padroa vai ser root
+  password: ${LOCAL_PASSWORD:teste123}
+
+

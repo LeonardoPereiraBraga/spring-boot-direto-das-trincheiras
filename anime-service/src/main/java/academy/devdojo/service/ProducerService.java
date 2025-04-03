@@ -2,6 +2,7 @@ package academy.devdojo.service;
 
 
 import academy.devdojo.domain.Producer;
+import academy.devdojo.exception.NotFoundException;
 import academy.devdojo.repository.ProducerHardCodedRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class ProducerService {
         return name== null ? repository.findAll() : repository.findByName(name);
     }
     public Producer findByIdOrThrow(Long id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Producer not found"));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Producer not found"));
     }
     public Producer save(Producer producer){
         return repository.save(producer);

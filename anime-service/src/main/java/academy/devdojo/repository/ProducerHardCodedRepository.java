@@ -16,13 +16,11 @@ public class ProducerHardCodedRepository {
     private final ProducerData producerData;
 
 
-
-
     public List<Producer> findAll() {
         return producerData.getProducers();
     }
 
-    public Optional<Producer> findById(Long id){
+    public Optional<Producer> findById(Long id) {
         return producerData.getProducers()
                 .stream()
                 .filter(producer -> producer.getId().equals(id))

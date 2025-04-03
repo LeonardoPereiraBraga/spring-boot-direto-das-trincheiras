@@ -2,6 +2,7 @@ package academy.devdojo.service;
 
 
 import academy.devdojo.domain.Anime;
+import academy.devdojo.exception.NotFoundException;
 import academy.devdojo.repository.AnimeHardCodedRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class AnimeService {
         return name== null ? repository.findAll() : repository.findByName(name);
     }
     public Anime findByIdOrThrow(Long id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Anime not found"));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Anime not found"));
     }
     public Anime save(Anime anime){
         return repository.save(anime);

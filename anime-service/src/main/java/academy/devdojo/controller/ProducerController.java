@@ -8,6 +8,7 @@ import academy.devdojo.request.ProducerPostRequest;
 import academy.devdojo.response.ProducerGetResponse;
 import academy.devdojo.response.ProducerPostResponse;
 import academy.devdojo.service.ProducerService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class ProducerController {
     private final ProducerMapper MAPPER;
     private final ProducerService producerService;
     @GetMapping
-    public ResponseEntity<List<ProducerGetResponse>> listAll(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<ProducerGetResponse>> findAll(@RequestParam(required = false) String name) {
         log.debug("Request received to list all producers, param name '{}'", name);
 
         var producers = producerService.findAll(name);
@@ -50,12 +51,12 @@ public class ProducerController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE,
             headers = "x-api-key")
-    public ResponseEntity<ProducerPostResponse> save(@RequestBody ProducerPostRequest producerPostRequest, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<ProducerPostResponse> save(@RequestBody @Valid ProducerPostRequest producerPostRequest, @RequestHeader HttpHeaders headers) {
         log.info("{}", headers);
         var producer = MAPPER.toProducer(producerPostRequest);
         Producer producerSaved = producerService.save(producer); 
-        var response = MAPPER.toProducerPostResponse(producerSaved);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        var producerPostResponse = MAPPER.toProducerPostResponse(producerSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(producerPostResponse);
     }
 
     @DeleteMapping("{id}")
@@ -68,7 +69,7 @@ public class ProducerController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody ProducerPutRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid ProducerPutRequest request) {
         log.debug("Request to update producer {}", request);
 
 

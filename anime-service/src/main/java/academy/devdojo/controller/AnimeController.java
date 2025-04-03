@@ -3,6 +3,8 @@ package academy.devdojo.controller;
 import academy.devdojo.domain.Anime;
 import academy.devdojo.domain.Anime;
 import academy.devdojo.domain.Anime;
+import academy.devdojo.exception.DefaultErrorMessage;
+import academy.devdojo.exception.NotFoundException;
 import academy.devdojo.mapper.AnimeMapper;
 import academy.devdojo.request.AnimePostRequest;
 import academy.devdojo.request.AnimePutRequest;
@@ -10,6 +12,7 @@ import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.response.AnimePostResponse;
 import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.service.AnimeService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +36,7 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<List<AnimeGetResponse>> listAll(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<AnimeGetResponse>> findAll(@RequestParam(required = false) String name) {
         log.debug("Request received to list all animes, param name '{}'", name);
 
         var animes = animeService.findAll(name);
@@ -52,7 +55,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<AnimePostResponse> save(@RequestBody AnimePostRequest animePostRequest) {
+    public ResponseEntity<AnimePostResponse> save(@RequestBody @Valid AnimePostRequest animePostRequest) {
         var anime = MAPPER.toAnime(animePostRequest);
         Anime animeSaved = animeService.save(anime);
         var response = MAPPER.toAnimePostResponse(animeSaved);
@@ -70,7 +73,7 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody AnimePutRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid AnimePutRequest request) {
         log.debug("Request to update anime {}", request);
 
 
@@ -79,5 +82,7 @@ public class AnimeController {
 
         return ResponseEntity.noContent().build();
     }
+
+
 
 }

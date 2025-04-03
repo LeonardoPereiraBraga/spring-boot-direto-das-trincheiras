@@ -56,7 +56,7 @@ class ProducerServiceTest {
         Assertions.assertThat(producersFound).containsAll(expectedProducersFound);
     }
     @Test
-    @DisplayName("findByName returns a empty list when name is not found") //Nome do teste
+    @DisplayName("findAll returns a empty list when name is not found") //Nome do teste
     void findByName_ReturnsEmptyList_WhenNameIsNotFound(){
         String nameWhichDontExists = "notfound";
         BDDMockito.when(repository.findByName(nameWhichDontExists)).thenReturn(emptyList());
