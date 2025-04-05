@@ -4,6 +4,14 @@ spring:
   threads:
     virtual:
       enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3309/anime_service?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: ${ENV_ROOT_USER:root}
+    password: ${ENV_ROOT_PASSWORD:devdojo}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 server:
   servlet:
@@ -14,9 +22,6 @@ server:
     threads:
       max: 20
 
-database:
-  url: ${DB_URL:localhost}:${DB_PORT:3306}
-  username: ${LOCAL_USERNAME:root} #:root sigfica que caso nao ache essa variavel o padroa vai ser root
-  password: ${LOCAL_PASSWORD:teste123}
+
 
 

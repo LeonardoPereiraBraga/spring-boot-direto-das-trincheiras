@@ -1,7 +1,7 @@
 package academy.devdojo.service;
 
 import academy.devdojo.domain.Producer;
-import academy.devdojo.repository.ProducerHardCodedRepository;
+import academy.devdojo.repository.ProducerRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.emptyList;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProducerServiceTest {
@@ -27,7 +26,7 @@ class ProducerServiceTest {
     @InjectMocks
     private ProducerService service;
     @Mock
-    private ProducerHardCodedRepository repository;
+    private ProducerRepository repository;
 
     private final List<Producer> producerList = new ArrayList<>();
 

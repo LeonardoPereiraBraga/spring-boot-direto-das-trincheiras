@@ -3,12 +3,9 @@ package academy.devdojo.service;
 
 import academy.devdojo.domain.Producer;
 import academy.devdojo.exception.NotFoundException;
-import academy.devdojo.repository.ProducerHardCodedRepository;
-import lombok.AllArgsConstructor;
+import academy.devdojo.repository.ProducerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ import java.util.List;
 @Service
 public class ProducerService {
 
-    private final ProducerHardCodedRepository repository;
+    private final ProducerRepository repository;
 
     public List<Producer> findAll(String name){
         return name== null ? repository.findAll() : repository.findByName(name);
@@ -33,8 +30,7 @@ public class ProducerService {
     }
     public void update(Producer producerToUpdate){
         Producer producer = findByIdOrThrow(producerToUpdate.getId());
-        producerToUpdate.setCreatedAt(producer.getCreatedAt());
-        repository.update(producerToUpdate);
+        repository.save(producerToUpdate);
     }
 
 

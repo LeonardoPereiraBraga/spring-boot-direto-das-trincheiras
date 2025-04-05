@@ -1,7 +1,7 @@
 package academy.devdojo.service;
 
 import academy.devdojo.domain.Anime;
-import academy.devdojo.repository.AnimeHardCodedRepository;
+import academy.devdojo.repository.AnimeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ public class AnimeServiceTest {
     AnimeService service;
 
     @Mock
-    AnimeHardCodedRepository repository;
+    AnimeRepository repository;
 
     private final List<Anime> animeList = new ArrayList<>();
 
