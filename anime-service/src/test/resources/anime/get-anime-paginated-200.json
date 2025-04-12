@@ -1,0 +1,41 @@
+{
+  "totalElements": 3,
+  "totalPages": 1,
+  "size": 3,
+  "content": [
+    {
+      "id": 1,
+      "name": "Mappa"
+    },
+    {
+      "id": 2,
+      "name": "Kyoto Animation"
+    },
+    {
+      "id": 3,
+      "name": "Madhouse"
+    }
+  ],
+  "number": 0,
+  "sort": {
+    "sorted": false,
+    "empty": true,
+    "unsorted": true
+  },
+  "first": true,
+  "last": true,
+  "numberOfElements": 3,
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 3,
+    "sort": {
+      "sorted": false,
+      "empty": true,
+      "unsorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "empty": false
+}

@@ -11,6 +11,13 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -43,6 +50,16 @@ public class AnimeServiceTest {
         BDDMockito.when(repository.findAll()).thenReturn(animeList);
         List<Anime> allAnimes = service.findAll(null);
         Assertions.assertThat(allAnimes).isNotNull().hasSize(animeList.size());
+    }
+    @Test
+    @DisplayName("findAllPaginated returns a paginated anime when null is given")
+    void findAllPaginated_ReturnsPaginatedAnimes_WhenSuccessful() throws Exception {
+        PageRequest pageRequest = PageRequest.of(0, animeList.size());
+        PageImpl<Anime> pageAnime = new PageImpl<>(animeList, pageRequest, 1);
+        BDDMockito.when(repository.findAll(BDDMockito.any(Pageable.class))).thenReturn(pageAnime);
+        Page<Anime> animePage = service.findAllPaginated(pageRequest);
+        Assertions.assertThat(animePage).isNotNull().hasSameElementsAs(animeList);
+
     }
     @Test
     @DisplayName("findAll returns list with found object when name exists")

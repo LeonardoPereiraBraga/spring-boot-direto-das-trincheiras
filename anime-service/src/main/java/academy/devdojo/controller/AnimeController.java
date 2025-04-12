@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +45,12 @@ public class AnimeController {
         var animeGetResponse = MAPPER.toAnimeGetResponseList(animes);
 
         return ResponseEntity.ok(animeGetResponse);
+    }
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<AnimeGetResponse>> findAllPaginated(Pageable pageable) {
+
+        var pageAnime = animeService.findAllPaginated(pageable).map(MAPPER::toAnimeGetResponse);
+        return ResponseEntity.ok(pageAnime);
     }
 
     @GetMapping("{id}")

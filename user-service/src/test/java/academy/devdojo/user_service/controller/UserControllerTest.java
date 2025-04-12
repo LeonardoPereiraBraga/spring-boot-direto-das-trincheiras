@@ -3,6 +3,7 @@ package academy.devdojo.user_service.controller;
 import academy.devdojo.user_service.commons.FileUtils;
 import academy.devdojo.user_service.domain.User;
 import academy.devdojo.user_service.mapper.UserMapperImpl;
+import academy.devdojo.user_service.repository.ProfileRepository;
 import academy.devdojo.user_service.repository.UserRepository;
 import academy.devdojo.user_service.service.UserService;
 import org.assertj.core.api.Assertions;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @WebMvcTest(UserController.class)
-@Import({UserService.class, UserMapperImpl.class, FileUtils.class, UserRepository.class})
+@Import({UserService.class, UserMapperImpl.class, FileUtils.class, UserRepository.class,ProfileRepository.class})
 class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -42,6 +43,8 @@ class UserControllerTest {
 
     @MockBean
     private UserRepository repository;
+    @MockBean
+    private ProfileRepository profileRepository;
 
 
     private final List<User> userList = new ArrayList<>();
