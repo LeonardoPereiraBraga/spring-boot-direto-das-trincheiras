@@ -103,11 +103,14 @@ class UserControllerTest {
     @Test
     @DisplayName("GET v1/users/999 throws ResponseException When User not Exists")
     void findById_ThrowsResponseException_WhenIdNotExists() throws Exception {
-        Long id = 999L;
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/users/{id}", id))
+        var response = fileUtils.readResourceFile("user/get-user-by-id-404.json");
+
+        var id = 99L;
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/users" + "/{id}", id))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.status().reason("User not found"));
+                .andExpect(MockMvcResultMatchers.content().json(response));
     }
 
     @Test
@@ -138,11 +141,13 @@ class UserControllerTest {
     @Test
     @DisplayName("DELETE v1/users throws a ResponseException when User is not found")
     void deleteById_ThrowsResponseException_WhenUserIsNotFound() throws Exception {
-        Long id = 999L;
+        Long id = 99L;
+        var response = fileUtils.readResourceFile("user/delete-user-by-id-404.json");
         mockMvc.perform(MockMvcRequestBuilders.delete("/v1/users/{id}", id))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.status().reason("User not found"));
+                .andExpect(MockMvcResultMatchers.content().json(response));
+
     }
 
     @Test
@@ -160,10 +165,17 @@ class UserControllerTest {
     @Test
     @DisplayName("UPDATE v1/users throws a ResponseException when User is not found")
     void update_ThrowsResponseException_WhenUserIsNotFound() throws Exception {
-        String request = fileUtils.readResourceFile("user/put-request-user-404.json");
-        mockMvc.perform(MockMvcRequestBuilders.put("/v1/users").content(request).contentType(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
+        var request = fileUtils.readResourceFile("user/put-request-user-404.json");
+        var response = fileUtils.readResourceFile("user/put-user-by-id-404.json");
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/v1/users")
+                        .content(request)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.status().reason("User not found"));
+                .andExpect(MockMvcResultMatchers.content().json(response));
 
     }
     @ParameterizedTest

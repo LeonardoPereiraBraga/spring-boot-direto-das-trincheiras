@@ -3,11 +3,8 @@ package academy.devdojo.user_service.controller;
 import academy.devdojo.user_service.commons.FileUtils;
 import academy.devdojo.user_service.commons.ProfileUtils;
 import academy.devdojo.user_service.config.TestcontainersConfiguration;
-import academy.devdojo.user_service.domain.Profile;
-import academy.devdojo.user_service.repository.ProfileRepository;
 import academy.devdojo.user_service.request.ProfilePostResponse;
 import academy.devdojo.user_service.response.ProfileGetResponse;
-import net.javacrumbs.jsonunit.assertj.JsonAssertion;
 import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,10 +21,6 @@ import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -47,8 +40,8 @@ class ProfileControllerIt {
 
     @Test
     @DisplayName("GET v1/profiles returns a list with all profiles")
-    @Sql(value = "/sql/init_two_profiles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //antes do teste executa esse sql
-    @Sql(value = "/sql/clean_profiles.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "/sql/profile/init_two_profiles.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD) //antes do teste executa esse sql
+    @Sql(value = "/sql/profile/clean_profiles.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void findAll_ReturnsAllProfiles_WhenSuccessful() throws Exception {
         var typeReference = new ParameterizedTypeReference<List<ProfileGetResponse>>(){}; //Tipo retornado
         ResponseEntity<List<ProfileGetResponse>> responseEntity = testRestTemplate.exchange(URL, HttpMethod.GET, null, typeReference);

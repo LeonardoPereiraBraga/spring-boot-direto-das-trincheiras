@@ -20,7 +20,7 @@ public class UserService {
         return name == null ? repository.findAll() : repository.findByFirstNameIgnoreCase(name);
     }
     public User findByIdOrThrow(Long id){
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("User not Found"));
     }
     public User save(User user){
         assertEmailDoesNotExist(user.getEmail());
