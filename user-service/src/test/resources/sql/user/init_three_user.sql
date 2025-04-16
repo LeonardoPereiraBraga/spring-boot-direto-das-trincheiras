@@ -1,3 +1,3 @@
-insert into user (email,first_name,last_name) values ('toyohisa@drifters.com','Toyohisa','Shimazu');
-insert into user (email,first_name,last_name) values ('ichigo@bleach.com','Ichigo','Kurosaki');
-insert into user (email,first_name,last_name) values ('ash@pokemon.com','Ash','Ketchum')
+insert into user (email,first_name,last_name,roles,password) values ('toyohisa@drifters.com','Toyohisa','Shimazu','USER','{bcrypt}$2a$10$x4ykW1ZRrJTxtkS2Zv58DerRTbNeIz9fLms3Bo1y7L3axkGwYa5zW');
+insert into user (email,first_name,last_name,roles,password) values ('ichigo@bleach.com','Ichigo','Kurosaki','ADMIN','{bcrypt}$2a$10$x4ykW1ZRrJTxtkS2Zv58DerRTbNeIz9fLms3Bo1y7L3axkGwYa5zW');
+insert into user (email,first_name,last_name,roles,password) values ('ash@pokemon.com','Ash','Ketchum','USER','{bcrypt}$2a$10$x4ykW1ZRrJTxtkS2Zv58DerRTbNeIz9fLms3Bo1y7L3axkGwYa5zW');

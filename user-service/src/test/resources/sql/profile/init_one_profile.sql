@@ -1,1 +1,0 @@
-insert into "profile" (name,description) values ('caze','cazetv')

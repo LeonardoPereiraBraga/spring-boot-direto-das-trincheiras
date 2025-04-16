@@ -1,6 +1,7 @@
 package academy.devdojo.controller;
 
 import academy.devdojo.commons.FileUtils;
+import academy.devdojo.config.SecurityConfig;
 import academy.devdojo.domain.Anime;
 import academy.devdojo.mapper.AnimeMapperImpl;
 import academy.devdojo.repository.AnimeData;
@@ -24,6 +25,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -37,6 +40,7 @@ import java.util.stream.Stream;
 
 @WebMvcTest(controllers = AnimeController.class)
 @Import({AnimeData.class, AnimeRepository.class, AnimeService.class, AnimeMapperImpl.class, FileUtils.class})
+@WithMockUser
 class AnimeControllerTest {
     @Autowired
     MockMvc mockMvc;

@@ -12,10 +12,12 @@ import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.response.AnimePostResponse;
 import academy.devdojo.response.AnimeGetResponse;
 import academy.devdojo.service.AnimeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,7 @@ import java.util.List;
 @RequestMapping("v1/animes")
 @Slf4j
 @RequiredArgsConstructor
+@SecurityRequirement(name = "basicAuth")
 public class AnimeController {
 
 
@@ -47,7 +50,7 @@ public class AnimeController {
         return ResponseEntity.ok(animeGetResponse);
     }
     @GetMapping("/paginated")
-    public ResponseEntity<Page<AnimeGetResponse>> findAllPaginated(Pageable pageable) {
+    public ResponseEntity<Page<AnimeGetResponse>> findAllPaginated(@ParameterObject Pageable pageable) {
 
         var pageAnime = animeService.findAllPaginated(pageable).map(MAPPER::toAnimeGetResponse);
         return ResponseEntity.ok(pageAnime);

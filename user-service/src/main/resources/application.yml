@@ -1,4 +1,9 @@
 spring:
+#  security:
+#    user:
+#      name: user
+#      password: devdojo
+
   config:
     import: optional:classpath:.env[.properties]
   application:
@@ -16,6 +21,18 @@ logging:
   level:
     net.ttddyy.dsproxy.listener: debug
 #    org.hibernate.orm.jdbc.bind: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8989
+
+brasil-api:
+  base-url: ${BRASIL_API_BASE_URL:https://brasilapi.com.br/api}
+  cep-url: ${BRASIL_API_URI:/cep/v1/{cep}}
 
 
 server:

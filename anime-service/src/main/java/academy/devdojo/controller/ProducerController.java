@@ -8,6 +8,7 @@ import academy.devdojo.request.ProducerPostRequest;
 import academy.devdojo.response.ProducerGetResponse;
 import academy.devdojo.response.ProducerPostResponse;
 import academy.devdojo.service.ProducerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import java.util.List;
 @RequestMapping("v1/producers")
 @Slf4j
 @RequiredArgsConstructor
+@SecurityRequirement(name = "basicAuth")
 public class ProducerController {
     @Qualifier("producerMapper")
     private final ProducerMapper MAPPER;

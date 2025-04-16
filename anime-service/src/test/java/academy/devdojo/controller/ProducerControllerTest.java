@@ -1,6 +1,7 @@
 package academy.devdojo.controller;
 
 import academy.devdojo.commons.FileUtils;
+import academy.devdojo.config.SecurityConfig;
 import academy.devdojo.domain.Anime;
 import academy.devdojo.domain.Producer;
 import academy.devdojo.mapper.ProducerMapperImpl;
@@ -22,6 +23,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -37,6 +39,7 @@ import java.util.stream.Stream;
 
 @WebMvcTest(controllers = ProducerController.class)
 @Import({ProducerMapperImpl.class, ProducerService.class, ProducerRepository.class, ProducerData.class, FileUtils.class})
+@WithMockUser
 class ProducerControllerTest {
     @Autowired
     private MockMvc mockMvc;
