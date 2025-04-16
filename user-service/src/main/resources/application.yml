@@ -15,7 +15,9 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  flyway:
+    enabled: true
 
 logging:
   level:
@@ -32,7 +34,7 @@ management:
 
 brasil-api:
   base-url: ${BRASIL_API_BASE_URL:https://brasilapi.com.br/api}
-  cep-url: ${BRASIL_API_URI:/cep/v1/{cep}}
+  cep-uri: ${BRASIL_API_URI:/cep/v1/{cep}}
 
 
 server:

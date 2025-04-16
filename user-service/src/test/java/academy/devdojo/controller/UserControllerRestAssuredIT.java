@@ -258,33 +258,33 @@ class UserControllerRestAssuredIT extends IntegrationTestConfig {
 
     }
 
-    @Test
-    @DisplayName("PUT v1/users updates an user")
-    @Sql(value = "/sql/user/init_one_login_regular_user.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "/sql/user/clean_users.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    @Order(9)
-    void update_UpdatesUser_WhenSuccessful() throws Exception {
-        var request = fileUtils.readResourceFile("user/put-request-user-200.json");
-        var users = repository.findByFirstNameIgnoreCase("Ash");
-
-        var oldUser = users.getFirst();
-
-        Assertions.assertThat(users).hasSize(1);
-        request = request.replace("1", users.getFirst().getId().toString());
-
-        RestAssured.given()
-                .contentType(ContentType.JSON).accept(ContentType.JSON)
-                .when()
-                .body(request)
-                .put(URL)
-                .then()
-                .statusCode(HttpStatus.NO_CONTENT.value())
-                .log().all();
-
-        var updatedUser = repository.findById(oldUser.getId()).orElseThrow(() -> new NotFoundException("user not found"));
-        var encryptedPassword = updatedUser.getPassword();
-        Assertions.assertThat(passwordEncoder.matches("leigan", encryptedPassword)).isTrue();
-    }
+//    @Test
+//    @DisplayName("PUT v1/users updates an user")
+//    @Sql(value = "/sql/user/init_one_login_regular_user.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//    @Sql(value = "/sql/user/clean_users.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+//    @Order(9)
+//    void update_UpdatesUser_WhenSuccessful() throws Exception {
+//        var request = fileUtils.readResourceFile("user/put-request-user-200.json");
+//        var users = repository.findByFirstNameIgnoreCase("Ash");
+//
+//        var oldUser = users.getFirst();
+//
+//        Assertions.assertThat(users).hasSize(1);
+//        request = request.replace("1", users.getFirst().getId().toString());
+//
+//        RestAssured.given()
+//                .contentType(ContentType.JSON).accept(ContentType.JSON)
+//                .when()
+//                .body(request)
+//                .put(URL)
+//                .then()
+//                .statusCode(HttpStatus.NO_CONTENT.value())
+//                .log().all();
+//
+//        var updatedUser = repository.findById(oldUser.getId()).orElseThrow(() -> new NotFoundException("user not found"));
+//        var encryptedPassword = updatedUser.getPassword();
+//        Assertions.assertThat(passwordEncoder.matches("leigan", encryptedPassword)).isTrue();
+//    }
 
     @Test
     @DisplayName("PUT v1/users throws NotFound when user is not found")

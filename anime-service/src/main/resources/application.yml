@@ -4,6 +4,8 @@ spring:
   threads:
     virtual:
       enabled: true
+  flyway:
+    enabled: true
   datasource:
     url: jdbc:mysql://localhost:3309/anime_service?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: ${ENV_ROOT_USER:root}
@@ -11,7 +13,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 server:
   servlet:
@@ -21,6 +23,8 @@ server:
   tomcat:
     threads:
       max: 20
+
+
 
 
 
